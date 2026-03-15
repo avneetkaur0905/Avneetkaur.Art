@@ -75,8 +75,15 @@ section{padding:100px 48px}
 #section-artwork{background:var(--cream);position:relative;overflow:hidden}
 #section-artwork::after{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(255,51,102,.07),transparent 70%);bottom:-150px;right:-100px;pointer-events:none}
 
-/* Tab row */
-.tab-row{display:flex;gap:0;margin-bottom:48px;border-bottom:2px solid rgba(0,0,0,.07);flex-wrap:wrap}
+/* Nav row — sticky, acts as section anchor links */
+.tab-row{
+  display:flex;gap:0;margin-bottom:0;
+  border-bottom:2px solid rgba(0,0,0,.07);flex-wrap:wrap;
+  position:sticky;top:60px;z-index:100;
+  background:var(--cream);
+  backdrop-filter:blur(12px);
+  padding-top:4px;
+}
 .tab-btn{
   background:none;border:none;cursor:pointer;
   font-family:'DM Sans',sans-serif;
@@ -104,9 +111,8 @@ section{padding:100px 48px}
 }
 .tab-btn.active .t-count{background:linear-gradient(135deg,var(--rose),var(--orange));color:#fff}
 
-/* Tab panels */
-.tab-panel{display:none}
-.tab-panel.active{display:block;animation:fadeTabIn .4s ease}
+/* All panels always visible, stacked */
+.tab-panel{display:block;padding-top:56px;margin-top:-10px}
 @keyframes fadeTabIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 
 /* Tab panel header */
@@ -329,28 +335,28 @@ footer{background:var(--ink);padding:20px 48px;display:flex;align-items:center;j
   <h2 class="s-title rev d1">My <em>Artwork</em></h2>
   <p class="s-desc rev d2">A collection of mandalas, drawings, small pieces and everything in between.</p>
 
-  <!-- Tab buttons -->
-  <div class="tab-row rev d2" id="artTabRow">
-    <button class="tab-btn active" data-tab="Mandalas" onclick="switchTab('Mandalas')">
+  <!-- Sticky nav -->
+  <div class="tab-row" id="artTabRow">
+    <button class="tab-btn active" data-tab="Mandalas" onclick="scrollToPanel('Mandalas')">
       <span class="cat-dot dot-mandala"></span>Mandalas
       <span class="t-count" id="cnt-Mandalas">0</span>
     </button>
-    <button class="tab-btn" data-tab="Drawing" onclick="switchTab('Drawing')">
+    <button class="tab-btn" data-tab="Drawing" onclick="scrollToPanel('Drawing')">
       <span class="cat-dot dot-drawing"></span>Drawing
       <span class="t-count" id="cnt-Drawing">0</span>
     </button>
-    <button class="tab-btn" data-tab="Little Artworks" onclick="switchTab('Little Artworks')">
+    <button class="tab-btn" data-tab="Little Artworks" onclick="scrollToPanel('Little Artworks')">
       <span class="cat-dot dot-little"></span>Little Artworks
       <span class="t-count" id="cnt-Little Artworks">0</span>
     </button>
-    <button class="tab-btn" data-tab="Random Art" onclick="switchTab('Random Art')">
+    <button class="tab-btn" data-tab="Random Art" onclick="scrollToPanel('Random Art')">
       <span class="cat-dot dot-random"></span>Random Art
       <span class="t-count" id="cnt-Random Art">0</span>
     </button>
   </div>
 
-  <!-- Tab panels -->
-  <div class="tab-panel active" id="panel-Mandalas">
+  <!-- All panels stacked, always visible -->
+  <div class="tab-panel" id="panel-Mandalas">
     <div class="tab-panel-header">
       <div>
         <div class="tab-panel-title">🌸 Mandalas</div>
@@ -654,16 +660,29 @@ function renderPhotography() {
   }
 }
 
-/* ── TABS ── */
-function switchTab(cat) {
-  // Hide all panels
-  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  // Show selected
+/* ── TABS → scroll anchors ── */
+function scrollToPanel(cat) {
   const panel = document.getElementById('panel-' + cat);
-  if (panel) panel.classList.add('active');
-  document.querySelectorAll('.tab-btn').forEach(b => { if (b.dataset.tab === cat) b.classList.add('active'); });
+  if (!panel) return;
+  // offset for sticky header + sticky tab row (~120px total)
+  const y = panel.getBoundingClientRect().top + window.scrollY - 120;
+  window.scrollTo({ top: y, behavior: 'smooth' });
 }
+
+// Scroll-spy: highlight the tab whose section is nearest to viewport top
+function updateActiveTab() {
+  const panels = ART_CATS.map(cat => ({ cat, el: document.getElementById('panel-' + cat) }));
+  let active = panels[0].cat;
+  for (const { cat, el } of panels) {
+    if (!el) continue;
+    const rect = el.getBoundingClientRect();
+    if (rect.top <= 160) active = cat;
+  }
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === active);
+  });
+}
+window.addEventListener('scroll', updateActiveTab, { passive: true });
 
 /* ── LIGHTBOX ── */
 function closeLB() { document.getElementById('lightbox').classList.remove('open'); document.body.style.overflow = ''; }
