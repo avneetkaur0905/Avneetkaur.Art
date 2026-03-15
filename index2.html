@@ -16,7 +16,7 @@
   --t-med:.5s cubic-bezier(.4,0,.2,1);
   --t-fast:.22s ease;
 }
-html{scroll-behavior:smooth}
+html{scroll-behavior:auto}
 body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden}
 body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");background-size:200px;pointer-events:none;z-index:9990;opacity:.5}
 
@@ -34,12 +34,12 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 @keyframes blobFloat{from{transform:translateY(0) scale(1) rotate(0deg)}to{transform:translateY(-40px) scale(1.1) rotate(6deg)}}
 
 /* HEADER */
-header{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:20px 48px;transition:background .4s,backdrop-filter .4s}
+header{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:20px 48px;transition:background .4s,backdrop-filter .4s;isolation:isolate}
 header.scrolled{background:rgba(255,253,247,.92);backdrop-filter:blur(18px);border-bottom:1.5px solid rgba(255,51,102,.12)}
 .logo{font-family:'Playfair Display',serif;font-size:1.55rem;font-weight:700;text-decoration:none;color:var(--ink)}
 .logo span{font-style:italic;font-weight:400;background:linear-gradient(90deg,var(--rose),var(--orange),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-nav{display:flex;align-items:center;gap:28px}
-nav a{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;font-weight:400;color:var(--ink);text-decoration:none;position:relative;padding-bottom:2px;transition:color var(--t-fast)}
+nav{display:flex;align-items:center;gap:28px;position:relative;z-index:1}
+nav a{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;font-weight:400;color:var(--ink);text-decoration:none;position:relative;padding:10px 0;min-height:44px;display:inline-flex;align-items:center;transition:color var(--t-fast);cursor:pointer}
 nav a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:linear-gradient(90deg,var(--rose),var(--orange));transition:width var(--t-med)}
 nav a:hover::after{width:100%}
 .btn-ss{background:linear-gradient(135deg,var(--rose),var(--orange));border:none;cursor:pointer;padding:10px 22px;font-family:'DM Sans',sans-serif;font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:#fff;font-weight:400;border-radius:100px;display:flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(255,51,102,.35);transition:transform var(--t-fast),box-shadow var(--t-fast)}
@@ -63,7 +63,7 @@ nav a:hover::after{width:100%}
 .scroll-line{width:40px;height:1px;background:linear-gradient(90deg,var(--rose),transparent)}
 
 /* SECTION BASE */
-section{padding:100px 48px}
+section{padding:100px 48px;scroll-margin-top:96px}
 .s-label{font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--rose);margin-bottom:12px;display:block}
 .s-title{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,4.5vw,3.8rem);font-weight:700;line-height:1.05;color:var(--ink);margin-bottom:8px}
 .s-title em{font-weight:400;font-style:italic;color:var(--orange)}
@@ -164,7 +164,7 @@ section{padding:100px 48px}
   height:auto;
 }
 .art-card{position:relative;overflow:hidden;cursor:pointer;border-radius:14px;background:#f0ede6}
-.art-card img{width:100%;height:auto;object-fit:unset;display:block;transition:transform var(--t-slow),filter var(--t-med)}
+.art-card img{width:100%;height:auto;object-fit:unset;display:block;transition:transform var(--t-slow),filter var(--t-med);content-visibility:auto}
 .art-card:hover img{transform:scale(1.07);filter:saturate(1.15) brightness(1.02)}
 /* photo masonry cards (identical behaviour) */
 .photo-grid .art-card{height:auto;aspect-ratio:unset}
@@ -233,7 +233,7 @@ section{padding:100px 48px}
 /* ABOUT */
 #about{background:var(--cream);display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;position:relative;overflow:hidden}
 #about::before{content:'';position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(255,190,0,.1),transparent 70%);top:-100px;right:-100px;pointer-events:none}
-.about-img{position:relative;aspect-ratio:3/4;overflow:hidden;border-radius:16px;background:#f0ede6}
+.about-img{position:relative;aspect-ratio:3/4;overflow:hidden;border-radius:16px;background:#f0ede6;width:88%;max-width:520px;margin:0 auto}
 .about-badge{position:absolute;bottom:20px;left:20px;right:20px;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-radius:12px;padding:14px 18px;display:flex;gap:20px;align-items:center}
 .badge-n{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--ink)}
 .badge-s{font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:#999;margin-top:2px}
@@ -278,13 +278,42 @@ footer{background:var(--ink);padding:20px 48px;display:flex;align-items:center;j
   .gallery-grid{columns:2}
   .photo-grid{columns:2}
   #about,#contact{grid-template-columns:1fr;gap:40px}
+  .about-img{width:100%;max-width:460px}
   .lb-side{display:none}
 }
+@media(max-width:760px){
+  header{padding:16px 18px;flex-direction:column;align-items:flex-start;gap:14px}
+  nav{width:100%;gap:10px;flex-wrap:wrap}
+  nav a{font-size:.58rem;letter-spacing:.12em;padding:8px 0;min-height:40px}
+  .btn-ss{padding:9px 16px;font-size:.58rem}
+  #hero{min-height:auto;padding:132px 18px 64px}
+  .hero-sub{max-width:100%}
+  .scroll-hint{left:18px;bottom:24px}
+  #section-artwork .tab-row{top:112px}
+  section{scroll-margin-top:132px}
+  .about-badge{left:14px;right:14px;bottom:14px;padding:12px 14px}
+  .c-v{font-size:.98rem;overflow-wrap:anywhere}
+  footer{padding:18px;flex-direction:column;align-items:flex-start;gap:10px}
+}
 @media(max-width:560px){
+  header{padding:14px 14px 12px}
+  nav{gap:8px;justify-content:flex-start}
+  nav a{font-size:.54rem;letter-spacing:.1em}
+  .btn-ss{width:100%;justify-content:center}
+  section{padding:64px 14px}
+  #hero{padding:128px 14px 56px}
+  section{scroll-margin-top:152px}
   .gallery-grid{columns:1}
   .photo-grid{columns:1}
   .tab-btn{padding:10px 16px;font-size:.62rem}
-  nav{gap:14px}
+  #section-artwork .tab-row{top:138px;overflow-x:auto;flex-wrap:nowrap;padding-bottom:6px}
+  .tab-panel{padding-top:40px}
+  .about-img{max-width:none}
+  .about-badge{position:static;margin:12px}
+  .badge-n{font-size:.96rem}
+  .badge-s{font-size:.54rem}
+  .skill-pills{margin-top:20px}
+  .c-card{padding:16px 18px}
 }
 </style>
 </head>
@@ -298,7 +327,7 @@ footer{background:var(--ink);padding:20px 48px;display:flex;align-items:center;j
   <nav>
     <a href="#section-artwork">Artwork</a>
     <a href="#section-photography">Photography</a>
-    <a href="#about">About</a>
+    <a href="#about">About Me</a>
     <a href="#contact">Contact</a>
     <button class="btn-ss" onclick="openSS()">
       <svg width="11" height="11" viewBox="0 0 11 11"><polygon points="1,0.5 10.5,5.5 1,10.5" fill="currentColor"/></svg>
@@ -313,7 +342,6 @@ footer{background:var(--ink);padding:20px 48px;display:flex;align-items:center;j
     <div class="blob blob1"></div><div class="blob blob2"></div>
     <div class="blob blob3"></div><div class="blob blob4"></div>
   </div>
-  <div class="hero-tag">Visual Artist · Delhi, India</div>
   <h1 class="hero-h1">Avneet<span class="grad">Kaur</span></h1>
   <p class="hero-sub">Mandalas · Drawing · Photography & more<br>Colour as emotion. Light as language.</p>
   <div class="hero-chips">
@@ -410,24 +438,18 @@ footer{background:var(--ink);padding:20px 48px;display:flex;align-items:center;j
 <!-- ── ABOUT ── -->
 <section id="about">
   <div class="about-img rev">
-    <div style="width:100%;height:100%;background:linear-gradient(135deg,#ffe4ec,#fff0d4,#e4f8f0);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px">
-      <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-      <span style="font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:#ccc">Your photo here</span>
-    </div>
+    <img src="images/about-me.jpg" alt="Avneet Kaur" style="width:100%;height:100%;object-fit:cover;display:block;">
     <div class="about-badge">
-      <div><div class="badge-n">Avneet Kaur</div><div class="badge-s">Visual Artist</div></div>
-      <div style="margin-left:auto;display:flex;align-items:center">
-        <div style="width:9px;height:9px;border-radius:50%;background:var(--mint);margin-right:6px"></div>
-        <span style="font-size:.58rem;color:#999;letter-spacing:.1em">Available for commissions</span>
-      </div>
+      <div><div class="badge-n">Avneet Kaur</div><div class="badge-s">Artist</div></div>
     </div>
   </div>
   <div>
     <div class="accent-bar rev"></div>
     <span class="s-label rev d1">About Me</span>
     <h2 class="s-title rev d1">The <em>Artist</em></h2>
-    <p class="about-body rev d2">Avneet Kaur is a multidisciplinary visual artist based in Delhi, India. Her practice spans mandalas, drawing, digital pieces, and photography — each medium a different language for the same curiosity about light, pattern, and emotion.</p>
-    <p class="about-body rev d2" style="margin-top:12px">She works intuitively, letting the art arrive before the idea.</p>
+    <p class="about-body rev d2">A creator at heart, finding stillness through the lens and the brush.</p>
+    <p class="about-body rev d2" style="margin-top:12px">Art is my essential escape from a fast-paced world. When I’m sketching or painting, the noise of daily life fades away, and everything feels beautifully slow and calm. It’s a meditative space where I can explore ideas without constraints.</p>
+    <p class="about-body rev d2" style="margin-top:12px">Parallel to that, photography allows me to pause and appreciate the world around me. I love capturing fleeting, beautiful moments—freezing a feeling in time that might otherwise be missed. For me, it’s all about finding the beauty in the little things and sharing how I see them.</p>
     <div class="skill-pills rev d3">
       <span class="sk-pill a">Mandalas</span>
       <span class="sk-pill b">Drawing</span>
@@ -442,12 +464,10 @@ footer{background:var(--ink);padding:20px 48px;display:flex;align-items:center;j
   <div class="rev" style="position:relative;z-index:1">
     <span class="s-label">Get in Touch</span>
     <h2 class="s-title">Let's <em>Create</em><br>Together</h2>
-    <p class="s-desc">Commissions, collabs, exhibitions, or just to say hello.</p>
+    <p class="s-desc">For any queries, feel free to reach out anytime.</p>
   </div>
   <div class="c-cards rev d1" style="position:relative;z-index:1">
-    <div class="c-card"><div class="c-l">Email</div><div class="c-v">avneet@example.com</div></div>
-    <div class="c-card"><div class="c-l">Instagram</div><div class="c-v">@avneetkaur.art</div></div>
-    <div class="c-card"><div class="c-l">Based in</div><div class="c-v">Delhi, India</div></div>
+    <div class="c-card"><div class="c-l">Email</div><div class="c-v">av.kaor0509@gmail.com</div></div>
   </div>
 </section>
 
@@ -605,6 +625,60 @@ document.querySelectorAll('a,button,.art-card').forEach(el => {
 /* ── HEADER ── */
 window.addEventListener('scroll', () => document.getElementById('hdr').classList.toggle('scrolled', scrollY > 20));
 
+/* ── NAV SCROLL ── */
+let navScrollFrame = null;
+
+function getNavTargetTop(target) {
+  const header = document.getElementById('hdr');
+  const headerOffset = header ? header.getBoundingClientRect().height + 18 : 96;
+  return Math.max(0, target.getBoundingClientRect().top + window.scrollY - headerOffset);
+}
+
+function stopNavScroll() {
+  if (navScrollFrame) {
+    cancelAnimationFrame(navScrollFrame);
+    navScrollFrame = null;
+  }
+}
+
+function animateNavScroll(targetY, duration = 650) {
+  stopNavScroll();
+  const startY = window.scrollY;
+  const distance = targetY - startY;
+  const startTime = performance.now();
+
+  function step(now) {
+    const elapsed = now - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = progress < 0.5
+      ? 4 * progress * progress * progress
+      : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+    window.scrollTo(0, Math.round(startY + distance * eased));
+    if (progress < 1) navScrollFrame = requestAnimationFrame(step);
+    else navScrollFrame = null;
+  }
+
+  navScrollFrame = requestAnimationFrame(step);
+}
+
+function scrollNavToSection(target) {
+  const align = () => window.scrollTo(0, getNavTargetTop(target));
+  animateNavScroll(getNavTargetTop(target));
+  window.setTimeout(align, 700);
+  window.setTimeout(align, 1100);
+}
+
+document.querySelectorAll('nav a[href^="#"]').forEach(link => {
+  link.addEventListener('click', e => {
+    const href = link.getAttribute('href');
+    const target = href ? document.querySelector(href) : null;
+    if (!target) return;
+    e.preventDefault();
+    scrollNavToSection(target);
+    if (history.replaceState) history.replaceState(null, '', href);
+  });
+});
+
 /* ── REVEAL ── */
 const revObs = new IntersectionObserver(entries => {
   entries.forEach((e, i) => { if (e.isIntersecting) setTimeout(() => e.target.classList.add('go'), i * 60); });
@@ -619,7 +693,7 @@ function makeCard(art, index, pool) {
   c.className = 'art-card';
   c.dataset.sub = art.subcategory;
   c.innerHTML = `
-    <img src="${art.img}" alt="${art.title}" loading="lazy"/>
+    <img src="${art.img}" alt="${art.title}" loading="lazy" decoding="async" fetchpriority="low"/>
     <div class="art-overlay">
       <div class="art-expand">↗</div>
       <div class="art-title">${art.title}</div>
