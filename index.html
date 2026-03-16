@@ -44,8 +44,6 @@ nav{display:flex;align-items:center;justify-content:center;gap:28px;position:rel
 nav a{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;font-weight:400;color:var(--ink);text-decoration:none;position:relative;padding:10px 0;min-height:44px;display:inline-flex;align-items:center;transition:color var(--t-fast);cursor:pointer}
 nav a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:linear-gradient(90deg,var(--rose),var(--orange));transition:width var(--t-med)}
 nav a:hover::after{width:100%}
-.btn-ss{background:linear-gradient(135deg,var(--rose),var(--orange));border:none;cursor:pointer;padding:10px 22px;font-family:'DM Sans',sans-serif;font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:#fff;font-weight:400;border-radius:100px;display:flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(255,51,102,.35);transition:transform var(--t-fast),box-shadow var(--t-fast);position:absolute;top:50%;right:48px;transform:translateY(-50%)}
-.btn-ss:hover{transform:translateY(calc(-50% - 2px));box-shadow:0 8px 30px rgba(255,51,102,.5)}
 
 /* HERO */
 #hero{min-height:120px;display:flex;align-items:flex-end;padding:24px 48px 0;position:relative;overflow:hidden;background:var(--cream)}
@@ -215,25 +213,6 @@ section{padding:100px 48px;scroll-margin-top:calc(var(--header-h) + 18px)}
 .lb-x{position:absolute;top:24px;right:24px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:#fff;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background var(--t-fast)}
 .lb-x:hover{background:rgba(255,51,102,.3)}
 
-/* SLIDESHOW */
-#ss{position:fixed;inset:0;z-index:700;background:#060608;display:none}
-#ss.open{display:block}
-.ss-stage{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
-.ss-slide{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 1.4s cubic-bezier(.4,0,.2,1)}
-.ss-slide.on{opacity:1;z-index:1}
-.ss-slide img{max-width:82vw;max-height:82vh;object-fit:contain;border-radius:4px;box-shadow:0 40px 100px rgba(0,0,0,.7)}
-.ss-glow{position:absolute;width:70%;height:60%;border-radius:50%;filter:blur(80px);opacity:.2;pointer-events:none;transition:background 1.4s ease}
-.ss-bar{position:absolute;bottom:0;left:0;right:0;padding:28px 60px 36px;background:linear-gradient(to top,rgba(0,0,0,.7),transparent);display:flex;align-items:flex-end;justify-content:space-between}
-.ss-info-t{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;color:#fff;line-height:1.1}
-.ss-info-m{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;margin-top:6px}
-.ss-cnt{font-size:.7rem;color:rgba(255,255,255,.35);letter-spacing:.1em}
-.ss-top{position:absolute;top:24px;right:24px;display:flex;gap:10px;z-index:10}
-.ss-icn{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:#fff;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center;transition:background var(--t-fast)}
-.ss-icn:hover{background:rgba(255,255,255,.18)}
-.ss-nav{position:absolute;top:50%;transform:translateY(-50%);width:54px;height:54px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.7);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;transition:all var(--t-fast)}
-.ss-nav:hover{background:rgba(255,255,255,.15);color:#fff}
-#ss-prv{left:20px}#ss-nxt{right:20px}
-.ss-prog{position:absolute;bottom:0;left:0;height:3px;z-index:20;background:linear-gradient(90deg,var(--rose),var(--orange),var(--gold))}
 
 /* ABOUT */
 #about{background:var(--cream);display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;position:relative;overflow:hidden}
@@ -293,8 +272,6 @@ footer{background:var(--ink);padding:20px 48px;display:flex;align-items:center;j
   nav{width:100%;justify-content:flex-start;gap:10px;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-right:0}
   nav::-webkit-scrollbar{display:none}
   nav a{font-size:.58rem;letter-spacing:.12em;padding:8px 0;min-height:40px;flex:0 0 auto;white-space:nowrap}
-  .btn-ss{padding:9px 16px;font-size:.58rem;top:28px;right:18px;transform:none}
-  .btn-ss:hover{transform:translateY(-2px)}
   #hero{min-height:88px;padding:12px 18px 0}
   .hero-sub{max-width:100%}
   .scroll-hint{left:18px;bottom:24px}
@@ -307,8 +284,6 @@ footer{background:var(--ink);padding:20px 48px;display:flex;align-items:center;j
   header{padding:10px 14px 8px;gap:8px 10px}
   nav{gap:8px;justify-content:flex-start}
   nav a{font-size:.54rem;letter-spacing:.1em}
-  .btn-ss{width:auto;justify-content:center;padding:8px 12px;font-size:.52rem;top:24px;right:14px;transform:none}
-  .btn-ss:hover{transform:translateY(-2px)}
   section{padding:64px 14px}
   #hero{min-height:78px;padding:10px 14px 0}
   .gallery-grid{columns:1}
@@ -337,10 +312,6 @@ footer{background:var(--ink);padding:20px 48px;display:flex;align-items:center;j
     <a href="#about">About Me</a>
     <a href="#contact">Contact</a>
   </nav>
-  <button class="btn-ss" onclick="openSS()">
-    <svg width="11" height="11" viewBox="0 0 11 11"><polygon points="1,0.5 10.5,5.5 1,10.5" fill="currentColor"/></svg>
-    Slideshow
-  </button>
 </header>
 
 <!-- ── HERO ── -->
@@ -498,24 +469,6 @@ footer{background:var(--ink);padding:20px 48px;display:flex;align-items:center;j
   </div>
 </div>
 
-<!-- ── SLIDESHOW ── -->
-<div id="ss">
-  <div class="ss-stage">
-    <div class="ss-glow" id="ssGlow"></div>
-    <div id="ssSlides"></div>
-  </div>
-  <div class="ss-prog" id="ssProg"></div>
-  <div class="ss-top">
-    <button class="ss-icn" id="ssPauseBtn" onclick="togglePause()">⏸</button>
-    <button class="ss-icn" onclick="closeSS()">✕</button>
-  </div>
-  <button class="ss-nav" id="ss-prv" onclick="ssNav(-1)">&#8592;</button>
-  <button class="ss-nav" id="ss-nxt" onclick="ssNav(1)">&#8594;</button>
-  <div class="ss-bar">
-    <div><div class="ss-info-t" id="ssT"></div><div class="ss-info-m" id="ssM"></div></div>
-    <div class="ss-cnt" id="ssC"></div>
-  </div>
-</div>
 
 <!-- ══════════════════════════════════════════════
      YOUR ARTWORK DATA
@@ -807,66 +760,6 @@ function showLB() {
 function lbNav(d) { lbI = (lbI + d + lbPool.length) % lbPool.length; showLB(); }
 document.getElementById('lightbox').addEventListener('click', function(e) { if (e.target === this) closeLB(); });
 
-/* ── SLIDESHOW ── */
-let ssI = 0, ssTimer = null, ssPaused = false;
-const SS_DUR = 5000;
-const SS_ALL = AW; // slideshow plays ALL artwork
-
-function buildSS() {
-  const c = document.getElementById('ssSlides'); c.innerHTML = '';
-  SS_ALL.forEach((a, i) => {
-    const s = document.createElement('div');
-    s.className = 'ss-slide' + (i === 0 ? ' on' : '');
-    s.id = 'sss' + i;
-    s.innerHTML = `<img src="${a.img}" alt="${a.title}" loading="lazy"/>`;
-    c.appendChild(s);
-  });
-}
-function ssCaption() {
-  const a = SS_ALL[ssI];
-  document.getElementById('ssT').textContent = a.title;
-  document.getElementById('ssM').textContent = `${a.subcategory} · ${a.year}`;
-  document.getElementById('ssM').style.color = a.subcategory === 'Photography' ? 'var(--mint)' : 'var(--orange)';
-  document.getElementById('ssC').textContent = `${ssI + 1} / ${SS_ALL.length}`;
-  document.getElementById('ssGlow').style.background = SUB_GLOW[a.subcategory] || SUB_GLOW['Mandalas'];
-}
-function ssGoTo(i) {
-  document.querySelectorAll('.ss-slide').forEach(s => s.classList.remove('on'));
-  ssI = (i + SS_ALL.length) % SS_ALL.length;
-  document.getElementById('sss' + ssI).classList.add('on');
-  ssCaption(); startProg();
-}
-function ssNav(d) { clearTimeout(ssTimer); ssGoTo(ssI + d); if (!ssPaused) scheduleSS(); }
-function scheduleSS() { clearTimeout(ssTimer); ssTimer = setTimeout(() => { ssGoTo(ssI + 1); scheduleSS(); }, SS_DUR); }
-function startProg() {
-  const b = document.getElementById('ssProg');
-  b.style.transition = 'none'; b.style.width = '0%';
-  requestAnimationFrame(() => { b.style.transition = `width ${SS_DUR}ms linear`; b.style.width = '100%'; });
-}
-function openSS() {
-  buildSS(); ssI = 0;
-  document.querySelectorAll('.ss-slide').forEach((s, i) => s.classList.toggle('on', i === 0));
-  ssCaption();
-  document.getElementById('ss').classList.add('open');
-  document.body.style.overflow = 'hidden';
-  const hdr = document.getElementById('hdr');
-  if (hdr) { hdr.style.visibility = 'hidden'; hdr.style.pointerEvents = 'none'; }
-  ssPaused = false; document.getElementById('ssPauseBtn').textContent = '⏸';
-  scheduleSS(); startProg();
-}
-function closeSS() {
-  document.getElementById('ss').classList.remove('open');
-  document.body.style.overflow = '';
-  const hdr = document.getElementById('hdr');
-  if (hdr) { hdr.style.visibility = ''; hdr.style.pointerEvents = ''; }
-  clearTimeout(ssTimer);
-}
-function togglePause() {
-  ssPaused = !ssPaused;
-  document.getElementById('ssPauseBtn').textContent = ssPaused ? '▶' : '⏸';
-  if (ssPaused) { clearTimeout(ssTimer); document.getElementById('ssProg').style.transition = 'none'; }
-  else { scheduleSS(); startProg(); }
-}
 
 /* ── KEYBOARD ── */
 document.addEventListener('keydown', e => {
