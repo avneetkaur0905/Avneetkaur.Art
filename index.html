@@ -20,7 +20,7 @@
 }
 html{scroll-behavior:auto}
 body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;font-weight:300;overflow-anchor:none;padding-top:var(--header-h)}
-body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");background-size:200px;pointer-events:none;z-index:9990;opacity:.5}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");background-size:200px;pointer-events:none;z-index:1;opacity:.5}
 
 /* CURSOR */
 .cur{width:12px;height:12px;background:var(--rose);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:multiply;transition:width .3s,height .3s,background .3s,border-radius .3s}
@@ -849,10 +849,18 @@ function openSS() {
   ssCaption();
   document.getElementById('ss').classList.add('open');
   document.body.style.overflow = 'hidden';
+  const hdr = document.getElementById('hdr');
+  if (hdr) { hdr.style.visibility = 'hidden'; hdr.style.pointerEvents = 'none'; }
   ssPaused = false; document.getElementById('ssPauseBtn').textContent = '⏸';
   scheduleSS(); startProg();
 }
-function closeSS() { document.getElementById('ss').classList.remove('open'); document.body.style.overflow = ''; clearTimeout(ssTimer); }
+function closeSS() {
+  document.getElementById('ss').classList.remove('open');
+  document.body.style.overflow = '';
+  const hdr = document.getElementById('hdr');
+  if (hdr) { hdr.style.visibility = ''; hdr.style.pointerEvents = ''; }
+  clearTimeout(ssTimer);
+}
 function togglePause() {
   ssPaused = !ssPaused;
   document.getElementById('ssPauseBtn').textContent = ssPaused ? '▶' : '⏸';
